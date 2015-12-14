@@ -1,39 +1,41 @@
 package client;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fy.ppc.StartedActivity;
+import com.example.fy.ppc.AddActionreal;
+import com.example.fy.ppc.ConnexionActivity;
 import com.example.fy.ppc.R;
+import com.example.fy.ppc.WelcomeActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import common.Match;
-import common.MessageArg;
-import common.ObjectArg;
-import common.Parie;
-import common.Protocol;
-import common.TCPMessage;
-import common.UDPPacket;
+import common.Couple;
+import common.Message;
+import common.User;
+
 
 /**
  * Created by fy on 2015-10-18.
  */
 public class ClientUISetting {
-
+    public enum ActivityType { CONNEXION, WELCOME, CREATE_ACTION ,ADD_COUPLE, ACTION_PROCESS }
     public ClientUISetting(){
 
     }
 
-    public static void setSpinnerStart(ClientActivity activity) {
-        //activity.sendReceive(Client.PROTOCOL.UDP, new UDPPacket(Protocol.RequestCode.LISTE_MATCH, new ObjectArg()));
+    public static void setSpinnerStart(ClientActivity act) {
+        Message msgSn = new Message();
+        msgSn.setSubject(Message.Subject.ACTIONS);
+        act.sendReceive(msgSn);
     }
 
     public static void setSpinnerEnd(ClientActivity activity,List list, int i){
@@ -43,16 +45,95 @@ public class ClientUISetting {
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
     }
+    public static void setUserInfo(ConnexionActivity act, String userName, Couple couple){
+        if(couple == null){
+            act.currentUserId = null;
+            TextView test = (TextView)act.findViewById(R.id.lblLoginInc);
+            test.setText("Incorrect, reessayez SVP");
+        }
+        else{
+            act.currentCouple = couple;
+            Intent intent = new Intent(act, WelcomeActivity.class);
+            intent.putExtra("currentCouple", couple);
+            intent.putExtra("currentUserId", userName);
+            act.startActivity(intent);
+        }
 
-//    public static void initView_parie(StartedActivity activity)
-//    {
-//        Button send_parie = (Button)activity.findViewById(R.id.send_parie);
-//        send_parie.setOnClickListener(activity);
-//        Button back = (Button)activity.findViewById(R.id.back);
-//        back.setOnClickListener(activity);
-//        Spinner spinner = (Spinner)activity.findViewById(R.id.spinner_parie);
-//        spinner.setOnItemSelectedListener(activity);
-//    }
+    }
+
+    public  static  void setWelcomInfo(WelcomeActivity act){
+
+        Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
+        String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
+        act.currentCouple = couple;
+        act.currentUserId = userName;
+        TextView user1 = (TextView)act.findViewById(R.id.lblpatner1Wel);
+        user1.setText(couple.getPartener1().getNom());
+        TextView user2 = (TextView)act.findViewById(R.id.lblpatner2Wel);
+        user2.setText(couple.getPartener2().getNom());
+        TextView point1 = (TextView)act.findViewById(R.id.PointMonsieurId);
+        point1.setText(Integer.toString(couple.GetPCpartener1()));
+        TextView point2 = (TextView)act.findViewById(R.id.PointMadameId);
+        point2.setText(Integer.toString(couple.GetPCpartener2()));
+    }
+
+    public static void connectUser(ConnexionActivity act){
+        TextView test = (TextView)act.findViewById(R.id.lblLoginInc);
+        test.setText("");
+        EditText id = (EditText) act.findViewById(R.id.userId);
+        String idVal = id.getText().toString();
+        act.currentUserId = idVal;
+        EditText pass = (EditText) act.findViewById(R.id.txtPassword);
+        String passVal = pass.getText().toString();
+        Message msgSn = new Message();
+        ArrayList<String> list = new ArrayList<String>(2);
+        list.add(idVal);
+        list.add(passVal);
+        msgSn.setSubject(Message.Subject.CONNECT);
+        msgSn.setBody(list);
+        act.sendReceive(msgSn);
+    }
+
+    public static void initComponent(ClientActivity act, ActivityType type)
+    {
+        switch (type){
+        case CONNEXION :
+            Button connect = (Button)act.findViewById(R.id.ConnectButtonId);
+            connect.setOnClickListener((ConnexionActivity)act);
+            break;
+        case CREATE_ACTION:
+
+            Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
+            String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
+            ((AddActionreal)act).currentCouple = couple;
+            ((AddActionreal)act).currentUserId = userName;
+            Button send = (Button)act.findViewById(R.id.SendButtonAR);
+            send.setOnClickListener((AddActionreal)act);
+            Spinner spinner = (Spinner)act.findViewById(R.id.SpinnerAcAR);
+            spinner.setOnItemSelectedListener((AddActionreal)act);
+            break;
+        case WELCOME:
+            Button ppc = (Button)act.findViewById(R.id.PPCIdButton);
+            ppc.setOnClickListener((WelcomeActivity)act);
+            Button lri = (Button)act.findViewById(R.id.LRIdButton);
+            lri.setOnClickListener((WelcomeActivity)act);
+            Button web = (Button)act.findViewById(R.id.WebSIdButton);
+            web.setOnClickListener((WelcomeActivity)act);
+            break;
+
+        }
+    }
+
+    public static void sendActionR(AddActionreal act){
+        Message msgSn = new Message();
+        ArrayList<String> list = new ArrayList<String>(3);
+        list.add(act.currentUserId);
+        list.add(act.evaluer);
+        list.add(act.actionDescToSend);
+        msgSn.setSubject(Message.Subject.ADD_AR);
+        msgSn.setBody(list);
+        act.sendReceive(msgSn);
+    }
 //    public static void sendParie(ClientActivity act,String name){
 //        EditText pointage = (EditText) act.findViewById(R.id.pointage);
 //        String pointageVal = pointage.getText().toString();
@@ -71,7 +152,7 @@ public class ClientUISetting {
 //        act.sendReceive(Client.PROTOCOL.TCP, parieMsg);
 //    }
 //
-//    public static void initView(StartedActivity activity)
+//    public static void initView(AddCoupleActivity activity)
 //    {
 //        Button update = (Button)activity.findViewById(R.id.update);
 //        update.setOnClickListener(activity);

@@ -9,7 +9,7 @@ public class Message implements Serializable {
   private Object body;
   
   ////////// AJOUTEZ DES CONSTANTES DANS CET ENUM SELON VOS BESOINS //////////
-  public enum Subject { STRING }
+  public enum Subject { CONNECT, HISTORIQUE, ACTIONS ,ADD_AR, UPDATE_AR , ADD_COUPLE}
   
   public Message() {}
 

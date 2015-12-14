@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Bienvenue dans votre permis à points"
+        android:id="@+id/AccueilId" android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PPC"
+        android:id="@+id/PPCIdButton"
+        android:minWidth="120dp"
+        android:minHeight="100dp"
+        android:textSize="36dp" android:layout_below="@+id/AccueilId"
+        android:layout_toEndOf="@+id/UserNameText"
+        android:layout_toRightOf="@+id/UserNameText"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LR"
+        android:id="@+id/LRIdButton"
+        android:layout_below="@+id/AccueilId"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toStartOf="@+id/PPCIdButton"
+        android:layout_toLeftOf="@+id/PPCIdButton"
+        android:layout_alignLeft="@+id/PPCIdButton"
+        android:layout_alignEnd="@+id/UserNameText"
+        android:layout_alignRight="@+id/UserNameText"
+        android:minWidth="120dp" android:minHeight="100dp"
+        android:textSize="36dp"/>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Web Service"
+        android:id="@+id/WebSIdButton"
+        android:minHeight="100dp" android:minWidth="120dp" android:layout_above="@+id/UserNameText"
+        android:layout_toEndOf="@+id/PPCIdButton"
+        android:layout_toRightOf="@+id/PPCIdButton"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User name :"
+        android:id="@+id/UserNameText"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/PPCIdButton"
+        android:layout_alignLeft="@+id/lblpatner2Wel"
+        android:layout_alignStart="@+id/lblpatner2Wel"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblpatner1Wel"
+        android:text="Monsieur"
+        android:layout_alignTop="@+id/PointMonsieurId"
+        android:layout_alignLeft="@+id/lblpatner2Wel"
+        android:layout_alignStart="@+id/lblpatner2Wel" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Madame"
+        android:id="@+id/lblpatner2Wel"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/lblpatner1Wel"
+        android:layout_alignLeft="@+id/AccueilId"
+        android:layout_alignStart="@+id/AccueilId" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PointMonsieur"
+        android:id="@+id/PointMonsieurId"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/PointMadameId"
+        android:layout_alignEnd="@+id/PointMadameId"
+        android:textAlignment="center" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PointMadame"
+        android:id="@+id/PointMadameId"
+        android:layout_alignTop="@+id/lblpatner2Wel"
+        android:layout_alignRight="@+id/WebSIdButton"
+        android:layout_alignEnd="@+id/WebSIdButton"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Points:"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/UserNameText"
+        android:layout_alignRight="@+id/PointMonsieurId"
+        android:layout_alignEnd="@+id/PointMonsieurId"
+        android:textSize="20dp" />
+</RelativeLayout>
+

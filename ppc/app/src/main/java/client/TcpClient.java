@@ -11,7 +11,7 @@ public class TcpClient {
   private final ObjectOutput objectOut;
   
   public TcpClient() throws IOException {
-    connection = new Socket(Protocol.SERVER_ADDRESS, Protocol.SERVER_PORT);
+    connection = new Socket(Common.SERVER_ADDRESS, Common.SERVER_PORT);
     objectOut = new ObjectOutputStream(connection.getOutputStream());
     objectOut.flush();
     objectIn = new ObjectInputStream(connection.getInputStream());
