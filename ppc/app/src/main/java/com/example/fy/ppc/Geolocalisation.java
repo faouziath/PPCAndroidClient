@@ -49,6 +49,8 @@ public class Geolocalisation extends FragmentActivity implements OnMapReadyCallb
         LatLng myposition2 = MyPosition();
 
 
+
+
         // Add a marker in Sydney and move the camera
         // LatLng sydney = new LatLng(-34, 151);
         // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));

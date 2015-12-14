@@ -7,7 +7,7 @@ import java.net.*;
  */
 public class Protocol {
     public static final int packetSize = 5000;
-    public static final String SERVER_ADDRESS = "10.0.2.2";
+    public static final String SERVER_ADDRESS = "192.168.1.141";
     public static final int SERVER_PORT = 1111;
     public enum RequestCode {
         LISTE_MATCH, MATCH, PARIE,NULL_RESPONSE,PUT_BET, TAKE_BET
