@@ -10,8 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fy.ppc.StartedActivity;
-import com.example.fy.ppc.R;
+
 
 import java.util.List;
 

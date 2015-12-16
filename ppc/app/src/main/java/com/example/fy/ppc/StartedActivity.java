@@ -6,6 +6,7 @@ import android.os.Bundle;
 import client.ClientActivity;
 import common.Message;
 
+
 public class StartedActivity extends ClientActivity {
 
     @Override

@@ -3,6 +3,7 @@ package client;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentActivity;
 
 import common.*;
 
