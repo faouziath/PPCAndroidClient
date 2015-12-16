@@ -40,7 +40,7 @@ import common.Message;
 
 
 public class Geolocalisation extends ClientActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
     // LogCat tag
     private static final String TAG = Geolocalisation.class.getSimpleName();
 
@@ -54,7 +54,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
     // boolean flag to toggle periodic location updates
     // private boolean mRequestingLocationUpdates = false;
 
-    // private LocationRequest mLocationRequest;
+     private LocationRequest mLocationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +63,41 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
 
         // First we need to check availability of play services
         if (checkPlayServices()) {
-
             // Building the GoogleApi client
+            createLocationRequest();
             buildGoogleApiClient();
+
         }
 
 
+
         };
+
+    /**
+     * Creating location request object
+     * */
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setSmallestDisplacement(10); // 10 meters
+    }
+
+    /**
+     * Starting the location updates
+     * */
+    protected void startLocationUpdates() {
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+
+    }
+
+    /**
+     * Stopping location updates
+     */
+    protected void stopLocationUpdates() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
+    }
 
 
     /**
@@ -83,7 +111,9 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         if (mLastLocation != null) {
             double latitude = mLastLocation.getLatitude();
             double longitude = mLastLocation.getLongitude();
-
+            System.out.println("ca se passe ici bro");
+            System.out.println(latitude);
+            System.out.println(longitude);
             ArrayList list = new ArrayList();
             list.add(latitude);
             list.add(longitude);
@@ -156,14 +186,26 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle arg0) {
-
+        startLocationUpdates();
         // Une fois connecte a l'API DE GOOGLE, on lance l'envoi d'ici !!
-        sendLocation("id2","id1");
+        sendLocation("id2", "id1");
+        stopLocationUpdates();
     }
 
     @Override
     public void onConnectionSuspended(int arg0) {
         mGoogleApiClient.connect();
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        // Assign the new location
+        mLastLocation = location;
+
+        Toast.makeText(getApplicationContext(), "Location changed!",
+                Toast.LENGTH_SHORT).show();
+
+        // Displaying the new location on UI
+        sendLocation("id2", "id1");
     }
 
 
