@@ -64,13 +64,11 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         // First we need to check availability of play services
         if (checkPlayServices()) {
             // Building the GoogleApi client
-            createLocationRequest();
+
             buildGoogleApiClient();
+            createLocationRequest();
 
         }
-
-
-
         };
 
     /**
@@ -99,7 +97,6 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
                 mGoogleApiClient, this);
     }
 
-
     /**
      * Method to send the location
      * */
@@ -121,7 +118,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
             sendToUser(to,from,list);
 
         } else {
-            System.out.println("SYSTEME FUCK");;
+            System.out.println("SYSTEME FUCK");
         }
     }
 
