@@ -43,6 +43,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LaMap"
+            android:label="@string/title_activity_la_map"></activity>
     </application>
 
 </manifest>

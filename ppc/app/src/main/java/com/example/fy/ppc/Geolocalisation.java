@@ -1,20 +1,13 @@
 package com.example.fy.ppc;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -23,17 +16,9 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.LocationListener;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
-import java.util.List;
 
 import client.ClientActivity;
 import common.Message;
@@ -43,6 +28,8 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
     // LogCat tag
     private static final String TAG = Geolocalisation.class.getSimpleName();
+    private String userId ;
+    private String partenaireUserId ;
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
 
@@ -59,17 +46,48 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_geolocalisation);
 
-        // First we need to check availability of play services
+      //DEBUG
+        int flag =1;
+        if(flag==0) {
+            userId = "id1";
+            partenaireUserId = "id2";
+        }
+        else
+        {
+            userId="id2";
+            partenaireUserId="id1";
+        }
+        //FIN DEBUG
+
+        setContentView(R.layout.activity_geolocalisation);
         if (checkPlayServices()) {
             // Building the GoogleApi client
 
             buildGoogleApiClient();
-            createLocationRequest();
 
         }
+        addListenerOnButton();
+        periodicSendReceive(new Message(Message.Subject.SYNC, userId), 2000);
+
         };
+
+
+
+    public void addListenerOnButton() {
+
+        Button button = (Button) findViewById(R.id.btnTOU);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                sendReceive(new Message(Message.Subject.TOU_REQUEST, userId, partenaireUserId, null));
+            }
+
+        });
+
+    }
 
     /**
      * Creating location request object
@@ -83,7 +101,8 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
      * Starting the location updates
      * */
     protected void startLocationUpdates() {
-
+        if(mLocationRequest== null)
+            createLocationRequest();
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
 
@@ -100,7 +119,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
     /**
      * Method to send the location
      * */
-    private void sendLocation(String to,String from) {
+    private ArrayList getLocation() {
 
         mLastLocation = LocationServices.FusedLocationApi
                 .getLastLocation(mGoogleApiClient);
@@ -115,15 +134,79 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
             list.add(latitude);
             list.add(longitude);
 
-            sendToUser(to,from,list);
+            return list;
 
         } else {
             System.out.println("SYSTEME FUCK");
         }
+        return null;
     }
 
     protected void sendToUser(String toP, String fromP,ArrayList bodyP ){
         sendReceive(new Message(Message.Subject.P2P,toP,fromP,bodyP));
+    }
+
+    @Override
+    protected void onReceive(Message message) {
+        switch (message.getSubject()) {
+            case TOU_ACK:
+                Toast.makeText(getApplicationContext(),
+                        "TOU ACK", Toast.LENGTH_LONG)
+                        .show();
+                break;
+            case TOU_REQUEST:
+                Toast.makeText(getApplicationContext(),
+                        "NOUVELLE DEMANDE DE TOU", Toast.LENGTH_LONG)
+                        .show();
+                AlertDialog alertDialog = new AlertDialog.Builder(Geolocalisation.this).create();
+                alertDialog.setTitle("Alert");
+                alertDialog.setMessage("TA CHERIE VEUT SAVOIR OU TU ES");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ENVOYER POSITOIN",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (checkPlayServices()) {
+                                    // Building the GoogleApi client
+                                    startLocationUpdates();
+                                    stopLocationUpdates();
+                                    ArrayList list = getLocation();
+                                    // Une fois connecte a l'API DE GOOGLE, on lance l'envoi d'ici !!
+                                    sendReceive(new Message(Message.Subject.TOU_POSITION, userId, partenaireUserId, list));
+                                    }
+                                dialog.dismiss();
+                                }
+                            });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "MENSONGE",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendReceive(new Message(Message.Subject.TOU_REFUSE,userId, partenaireUserId,null));
+                            dialog.dismiss();
+                        }
+                    });
+                alertDialog.show();
+                break;
+            case TOU_REFUSE:
+                Toast.makeText(getApplicationContext(),
+                        "INDISPONIBLE POUR LE MOMENT", Toast.LENGTH_LONG)
+                        .show();
+              break;
+
+            case TOU_POSITION:
+                ArrayList laliste = (ArrayList)message.getBody();
+                double latitude = (double) laliste.get(0);
+                double longitude = (double) laliste.get(1);
+                String txt = "latitude: " + latitude + "longitude: " + longitude;
+                Toast.makeText(getApplicationContext(),txt
+                        , Toast.LENGTH_LONG)
+                        .show();
+
+                Intent intent = new Intent(Geolocalisation.this, LaMap.class);
+                intent.putExtra("latitude",latitude );
+                intent.putExtra("longitude", longitude);
+                startActivity(intent);
+
+                }
+
+
     }
 
     /**
@@ -184,8 +267,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
     @Override
     public void onConnected(Bundle arg0) {
         startLocationUpdates();
-        // Une fois connecte a l'API DE GOOGLE, on lance l'envoi d'ici !!
-        sendLocation("id2", "id1");
+
         stopLocationUpdates();
     }
 
@@ -201,8 +283,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         Toast.makeText(getApplicationContext(), "Location changed!",
                 Toast.LENGTH_SHORT).show();
 
-        // Displaying the new location on UI
-        sendLocation("id2", "id1");
+
     }
 
 
