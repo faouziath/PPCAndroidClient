@@ -46,6 +46,11 @@
         <activity
             android:name=".LaMap"
             android:label="@string/title_activity_la_map"></activity>
+
+        <service
+            android:name=".SyncService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

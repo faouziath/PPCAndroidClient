@@ -48,7 +48,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
 
       //DEBUG
-        int flag =1;
+        int flag =0;
         if(flag==0) {
             userId = "id1";
             partenaireUserId = "id2";
@@ -70,6 +70,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         addListenerOnButton();
         periodicSendReceive(new Message(Message.Subject.SYNC, userId), 2000);
 
+        startService(new Intent(this, SyncService.class).putExtra(SyncService.USER_ID, userId));
         };
 
 
