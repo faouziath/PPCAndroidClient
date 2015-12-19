@@ -71,9 +71,16 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
         periodicSendReceive(new Message(Message.Subject.SYNC, userId), 2000);
 
         startService(new Intent(this, SyncService.class).putExtra(SyncService.USER_ID, userId));
+
+        Message message = getNotificationMessage();
+        if (message != null) {
+            // ...
+        }
         };
 
-
+    private Message getNotificationMessage() {
+        return (Message) getIntent().getSerializableExtra(SyncService.NOTIFICATION_MESSAGE);
+    }
 
     public void addListenerOnButton() {
 

@@ -16,13 +16,13 @@ public class SyncService extends IntentService {
   private static final int SYNC_DELAY = 2000;
   
   public static final String USER_ID = "USER_ID";
+  public static final String NOTIFICATION_MESSAGE = "NOTIFICATION_MESSAGE";
   public static final int NOTIFICATION_ID = 1;
   
   public SyncService() {
     super("SyncService");
   }
   
-  // Runs in a background thread.
   @Override
   protected void onHandleIntent(Intent intent) {
     if (intent != null) {
@@ -41,20 +41,26 @@ public class SyncService extends IntentService {
   }
   
   private void handleMessage(Message message) {
-    notify("subject: " + message.getSubject().toString());
+    if (message.getSubject() != Message.Subject.NULL) {
+      notify(message.getSubject().toString(), message);
+    }
   }
   
-  private void notify(final String text) {
+  private void notify(final String text, Message message) {
     ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(
       NOTIFICATION_ID,
       new Notification.Builder(this)
         .setSmallIcon(R.mipmap.ic_launcher)
         .setContentTitle(getString(R.string.app_name))
         .setContentText(text)
+        .setAutoCancel(true)
         .setContentIntent(
           TaskStackBuilder.create(this)
             .addParentStack(Geolocalisation.class)
-            .addNextIntent(new Intent(this, Geolocalisation.class))
+            .addNextIntent(
+              new Intent(this, Geolocalisation.class)
+                .putExtra(NOTIFICATION_MESSAGE, message)
+            )
             .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         )
         .build()
