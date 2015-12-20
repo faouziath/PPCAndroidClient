@@ -16,9 +16,12 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import client.ClientActivity;
+import common.Message;
+
 import static android.app.PendingIntent.getActivity;
 
-public class Picker extends AppCompatActivity {
+public class Picker extends ClientActivity {
 
     private int PLACE_PICKER_REQUEST = 1;
     private TextView tvName;
@@ -70,6 +73,7 @@ public class Picker extends AppCompatActivity {
             if (attributions == null) {
                 attributions = "";
             }
+            sendReceive(new Message(Message.Subject.TOU_REFUSE,getIntent().getStringExtra("userId"), getIntent().getStringExtra("partenaireId"),place.getLatLng()));
             tvName.setText(name);
             tvAddress.setText(address);
             tvAttributions.setText(Html.fromHtml(attributions));
