@@ -56,9 +56,9 @@ public class SyncService extends IntentService {
         .setAutoCancel(true)
         .setContentIntent(
           TaskStackBuilder.create(this)
-            .addParentStack(Geolocalisation.class)
+            .addParentStack(WelcomeActivity.class)
             .addNextIntent(
-              new Intent(this, Geolocalisation.class)
+              new Intent(this, WelcomeActivity.class)
                 .putExtra(NOTIFICATION_MESSAGE, message)
             )
             .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
