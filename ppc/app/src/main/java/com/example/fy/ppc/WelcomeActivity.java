@@ -234,14 +234,16 @@ public class WelcomeActivity  extends ClientActivity implements
                 Intent intent = new Intent(WelcomeActivity.this, LaMap.class);
                 intent.putExtra("latitude",latitude );
                 intent.putExtra("longitude", longitude);
+                intent.putExtra("currentCouple", currentCouple);
+                intent.putExtra("currentUserId", currentUserId);
                 startActivity(intent);
 
         }
     }
 
     protected void launchPiker(){
-        Picker pik = null;
-        Intent intent = new Intent(pik, Picker.class);
+
+        Intent intent = new Intent(WelcomeActivity.this, Picker.class);
         intent.putExtra("userId",currentUserId);
         intent.putExtra("partenaireId",partnerUserId);
         startActivity(intent);
