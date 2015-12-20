@@ -18,6 +18,7 @@ public class WelcomeActivity  extends ClientActivity implements View.OnClickList
         setContentView(R.layout.activity_welcome);
         ClientUISetting.initComponent(this, ClientUISetting.ActivityType.WELCOME);
         ClientUISetting.setWelcomInfo(this);
+        startService(new Intent(this, SyncService.class).putExtra(SyncService.USER_ID, currentUserId));
     }
     @Override
     protected  void onReceive(Message response)
