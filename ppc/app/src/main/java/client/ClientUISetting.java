@@ -138,7 +138,7 @@ public class ClientUISetting {
         Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
         String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
         Message msgSn = new Message();
-        msgSn.setSubject(Message.Subject.CONNECT);
+        msgSn.setSubject(Message.Subject.HISTORIQUE);
         msgSn.setBody(couple);
         act.sendReceive(msgSn);
     }
