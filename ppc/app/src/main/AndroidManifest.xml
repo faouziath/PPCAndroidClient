@@ -24,6 +24,7 @@
         <activity android:name=".AddActionreal" />
         <activity android:name=".Geolocalisation" />
         <activity android:name=".LaMap" />
+        <activity android:name=".Picker" />
 
         <service
             android:name=".SyncService"
