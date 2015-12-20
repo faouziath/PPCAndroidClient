@@ -10,14 +10,19 @@ import android.content.Intent;
 import android.os.SystemClock;
 
 import client.TcpClient;
+import common.Couple;
 import common.Message;
 
 public class SyncService extends IntentService {
   private static final int SYNC_DELAY = 2000;
   
   public static final String USER_ID = "USER_ID";
+  public static final String COUPLE_ID = "COUPLE_ID";
   public static final String NOTIFICATION_MESSAGE = "NOTIFICATION_MESSAGE";
   public static final int NOTIFICATION_ID = 1;
+
+  private String currentUserId;
+  private Couple currentCouple;
   
   public SyncService() {
     super("SyncService");
@@ -26,6 +31,9 @@ public class SyncService extends IntentService {
   @Override
   protected void onHandleIntent(Intent intent) {
     if (intent != null) {
+      currentUserId = intent.getStringExtra(USER_ID);
+      currentCouple = (Couple) intent.getSerializableExtra(COUPLE_ID);
+
       while(true) {
         SystemClock.sleep(SYNC_DELAY);
         
@@ -41,8 +49,20 @@ public class SyncService extends IntentService {
   }
   
   private void handleMessage(Message message) {
+    String texte = "default";
     if (message.getSubject() != Message.Subject.NULL) {
-      notify(message.getSubject().toString(), message);
+      switch (message.getSubject()){
+        case TOU_REQUEST:
+          texte = "Vous avez une nouvelle demande de T OU !";
+          break;
+        case TOU_POSITION:
+          texte = "Voici ma position mon amour";
+          break;
+        case TOU_REFUSE:
+          texte = "Voici ma position mon amour";
+          break;
+      }
+      notify(texte, message);
     }
   }
   
@@ -55,13 +75,15 @@ public class SyncService extends IntentService {
         .setContentText(text)
         .setAutoCancel(true)
         .setContentIntent(
-          TaskStackBuilder.create(this)
-            .addParentStack(Geolocalisation.class)
-            .addNextIntent(
-              new Intent(this, Geolocalisation.class)
-                .putExtra(NOTIFICATION_MESSAGE, message)
-            )
-            .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+                TaskStackBuilder.create(this)
+                        .addParentStack(WelcomeActivity.class)
+                        .addNextIntent(
+                                new Intent(this, WelcomeActivity.class)
+                                        .putExtra(NOTIFICATION_MESSAGE, message)
+                                        .putExtra("currentCouple", currentCouple)
+                                        .putExtra("currentUserId", currentUserId)
+                        )
+                        .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         )
         .build()
     );

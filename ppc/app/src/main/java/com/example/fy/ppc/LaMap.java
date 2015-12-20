@@ -1,36 +1,52 @@
 package com.example.fy.ppc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class LaMap extends FragmentActivity implements OnMapReadyCallback {
+import common.Couple;
+
+public class LaMap extends Activity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private double longitude ;
     private  double latitude ;
+    public String currentUserId;
+    public Couple currentCouple;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_la_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+                .getMap();
         Intent intent = getIntent();
-        longitude = intent.getDoubleExtra("longitude",0);
-        latitude = intent.getDoubleExtra("latitude",0);
-        mapFragment.getMapAsync(this);
+        currentCouple = (Couple) intent.getSerializableExtra("currentCouple");
+        currentUserId = intent.getStringExtra("currentUserId");
+        longitude = intent.getDoubleExtra("longitude", 0);
+        latitude = intent.getDoubleExtra("latitude", 0);
+        LatLng sydney = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("IL EST PLANQUE ICI"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,14));
 
     }
 
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(this, WelcomeActivity.class).putExtra("currentCouple", currentCouple).putExtra("currentUserId", currentUserId));
+        finish();
+    }
 
     /**
      * Manipulates the map once available.

@@ -15,6 +15,9 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 
 import client.ClientActivity;
 import common.Message;
@@ -73,7 +76,14 @@ public class Picker extends ClientActivity {
             if (attributions == null) {
                 attributions = "";
             }
-            sendReceive(new Message(Message.Subject.TOU_REFUSE,getIntent().getStringExtra("userId"), getIntent().getStringExtra("partenaireId"),place.getLatLng()));
+            LatLng temp = place.getLatLng();
+            ArrayList envoi = new ArrayList();
+            double tempCoord = temp.latitude;
+            envoi.add(tempCoord);
+            tempCoord = temp.longitude;
+            envoi.add(tempCoord);
+
+            sendReceive(new Message(Message.Subject.TOU_REFUSE, getIntent().getStringExtra("userId"), getIntent().getStringExtra("partenaireId"), envoi));
             tvName.setText(name);
             tvAddress.setText(address);
             tvAttributions.setText(Html.fromHtml(attributions));

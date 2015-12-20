@@ -23,7 +23,6 @@
         <activity android:name=".AddCoupleActivity" />
         <activity android:name=".ActionProcessActivity" />
         <activity android:name=".AddActionreal" />
-        <activity android:name=".Geolocalisation" />
         <activity android:name=".LaMap" />
         <activity android:name=".Picker" />
 
