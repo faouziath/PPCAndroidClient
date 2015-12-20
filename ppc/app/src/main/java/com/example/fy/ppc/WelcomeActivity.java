@@ -217,9 +217,16 @@ public class WelcomeActivity  extends ClientActivity implements
                 alertDialog.show();
                 break;
             case TOU_REFUSE:
-                Toast.makeText(getApplicationContext(),
-                        "INDISPONIBLE POUR LE MOMENT", Toast.LENGTH_LONG)
-                        .show();
+                ArrayList lalisteR = (ArrayList)message.getBody();
+                double latitudeR = (double) lalisteR.get(0);
+                double longitudeR = (double) lalisteR.get(1);
+                Intent intentR = new Intent(WelcomeActivity.this, LaMap.class);
+                intentR.putExtra("latitude",latitudeR );
+                intentR.putExtra("longitude", longitudeR);
+                intentR.putExtra("currentCouple", currentCouple);
+                intentR.putExtra("currentUserId", currentUserId);
+                startActivity(intentR);
+
                 break;
 
             case TOU_POSITION:

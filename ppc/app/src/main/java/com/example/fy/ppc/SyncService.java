@@ -49,8 +49,20 @@ public class SyncService extends IntentService {
   }
   
   private void handleMessage(Message message) {
+    String texte = "default";
     if (message.getSubject() != Message.Subject.NULL) {
-      notify(message.getSubject().toString(), message);
+      switch (message.getSubject()){
+        case TOU_REQUEST:
+          texte = "Vous avez une nouvelle demande de T OU !";
+          break;
+        case TOU_POSITION:
+          texte = "Voici ma position mon amour";
+          break;
+        case TOU_REFUSE:
+          texte = "Voici ma position mon amour";
+          break;
+      }
+      notify(texte, message);
     }
   }
   
