@@ -29,6 +29,8 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
     @Override
     protected  void onReceive(Message response)
     {
+        System.out.println("dfdfd");
+        System.out.println(response == null);
         switch (response.getSubject()){
             case HISTORIQUE:
                 // references to our text
