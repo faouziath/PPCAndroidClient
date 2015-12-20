@@ -1,7 +1,6 @@
 package com.example.fy.ppc;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,7 +8,6 @@ import client.ClientActivity;
 import client.ClientUISetting;
 import common.Couple;
 import common.Message;
-import common.User;
 
 public class WelcomeActivity  extends ClientActivity implements View.OnClickListener{
     public String currentUserId;
@@ -31,17 +29,21 @@ public class WelcomeActivity  extends ClientActivity implements View.OnClickList
     }
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.PPCIdButton){
+        if(v.getId() == R.id.ActionButton){
             Intent intent = new Intent(this, AddActionreal.class);
             intent.putExtra("currentCouple", currentCouple);
             intent.putExtra("currentUserId", currentUserId);
             startActivity(intent);
         }
-        else if(v.getId() == R.id.LRIdButton){
+        else if(v.getId() == R.id.HistoryButton){
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("currentCouple", currentCouple);
             intent.putExtra("currentUserId", currentUserId);
             startActivity(intent);
+        }
+        else if (v.getId() == R.id.TOUButton) {
+            String partnerUserId = currentCouple.getPatner(currentUserId);
+            sendReceive(new Message(Message.Subject.TOU_REQUEST, currentUserId, partnerUserId, null));
         }
     }
 }

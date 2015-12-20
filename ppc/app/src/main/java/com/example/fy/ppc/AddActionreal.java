@@ -47,7 +47,6 @@ public class AddActionreal extends ClientActivity implements  AdapterView.OnItem
 
             // find the radiobutton by returned id
             RadioButton radioBtnMoi = (RadioButton) this.findViewById(selectedId);
-            Toast.makeText(AddActionreal.this, radioBtnMoi.getText(), Toast.LENGTH_SHORT).show();
             if(radioBtnMoi.getText().equals("Moi")) {
                 evaluer = currentUserId;
             }

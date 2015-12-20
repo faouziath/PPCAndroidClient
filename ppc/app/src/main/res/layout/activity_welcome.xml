@@ -14,40 +14,39 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PPC"
-        android:id="@+id/PPCIdButton"
+        android:text="Actions"
+        android:id="@+id/ActionButton"
         android:minWidth="120dp"
         android:minHeight="100dp"
-        android:textSize="36dp" android:layout_below="@+id/AccueilId"
+        android:textSize="16dp" android:layout_below="@+id/AccueilId"
         android:layout_toEndOf="@+id/UserNameText"
         android:layout_toRightOf="@+id/UserNameText"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LR"
-        android:id="@+id/LRIdButton"
+        android:text="Historique"
+        android:id="@+id/HistoryButton"
         android:layout_below="@+id/AccueilId"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_toStartOf="@+id/PPCIdButton"
-        android:layout_toLeftOf="@+id/PPCIdButton"
-        android:layout_alignLeft="@+id/PPCIdButton"
-        android:layout_alignEnd="@+id/UserNameText"
-        android:layout_alignRight="@+id/UserNameText"
-        android:minWidth="120dp" android:minHeight="100dp"
-        android:textSize="36dp"/>
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Web Service"
-        android:id="@+id/WebSIdButton"
+        android:layout_toStartOf="@+id/ActionButton"
+        android:layout_alignLeft="@+id/ActionButton"
+        android:minWidth="160dp" android:minHeight="100dp"
+        android:textSize="16dp"
+        android:layout_toLeftOf="@+id/ActionButton" />
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="T OU?"
+        android:id="@+id/TOUButton"
         android:minHeight="100dp" android:minWidth="120dp" android:layout_above="@+id/UserNameText"
-        android:layout_toEndOf="@+id/PPCIdButton"
-        android:layout_toRightOf="@+id/PPCIdButton"/>
+        android:layout_toEndOf="@+id/ActionButton"
+        android:layout_toRightOf="@+id/ActionButton"
+        android:textSize="16dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User name :"
         android:id="@+id/UserNameText"
         android:layout_marginTop="42dp"
-        android:layout_below="@+id/PPCIdButton"
+        android:layout_below="@+id/ActionButton"
         android:layout_alignLeft="@+id/lblpatner2Wel"
         android:layout_alignStart="@+id/lblpatner2Wel"
         android:textSize="20dp" />
@@ -75,8 +74,8 @@
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PointMadame"
         android:id="@+id/PointMadameId"
         android:layout_alignTop="@+id/lblpatner2Wel"
-        android:layout_alignRight="@+id/WebSIdButton"
-        android:layout_alignEnd="@+id/WebSIdButton"
+        android:layout_alignRight="@+id/TOUButton"
+        android:layout_alignEnd="@+id/TOUButton"
         android:textAlignment="center" />
 
     <TextView

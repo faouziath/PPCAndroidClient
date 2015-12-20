@@ -5,11 +5,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.fy.ppc.AddActionreal;
 import com.example.fy.ppc.ConnexionActivity;
@@ -22,7 +19,6 @@ import java.util.List;
 
 import common.Couple;
 import common.Message;
-import common.User;
 
 
 /**
@@ -115,11 +111,11 @@ public class ClientUISetting {
             spinner.setOnItemSelectedListener((AddActionreal)act);
             break;
         case WELCOME:
-            Button ppc = (Button)act.findViewById(R.id.PPCIdButton);
+            Button ppc = (Button)act.findViewById(R.id.ActionButton);
             ppc.setOnClickListener((WelcomeActivity)act);
-            Button lri = (Button)act.findViewById(R.id.LRIdButton);
+            Button lri = (Button)act.findViewById(R.id.HistoryButton);
             lri.setOnClickListener((WelcomeActivity)act);
-            Button web = (Button)act.findViewById(R.id.WebSIdButton);
+            Button web = (Button)act.findViewById(R.id.TOUButton);
             web.setOnClickListener((WelcomeActivity)act);
             break;
 
