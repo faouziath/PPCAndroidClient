@@ -35,17 +35,29 @@
         android:editable="true"
         android:layout_alignTop="@+id/action"
         android:layout_alignRight="@+id/lblInd1"
-        android:layout_alignEnd="@+id/lblInd1" />
+        android:layout_alignEnd="@+id/lblInd1"
+        android:layout_above="@+id/dateText"
+        android:text="kkkkk" />
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateText"
+        android:editable="true"
+        android:layout_below="@+id/action"
+        android:layout_alignRight="@+id/commentText"
+        android:layout_alignEnd="@+id/commentText"
+        android:layout_marginTop="61dp"
+        android:text="kkkk" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Comment"
         android:id="@+id/lblComment"
-        android:layout_below="@+id/action"
+        android:layout_below="@+id/dateText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="58dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -53,15 +65,15 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/commentText"
-        android:layout_alignTop="@+id/lblComment"
-        android:layout_alignLeft="@+id/actionText"
-        android:layout_alignStart="@+id/actionText" />
+        android:layout_below="@+id/lblComment"
+        android:layout_alignRight="@+id/actionText"
+        android:layout_alignEnd="@+id/actionText" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accept"
-        android:id="@+id/btnAccept"
+        android:text="Back"
+        android:id="@+id/btnBack"
         android:layout_marginTop="56dp"
         android:layout_below="@+id/commentText"
         android:layout_alignRight="@+id/lblComment"
@@ -72,17 +84,27 @@
         android:layout_height="wrap_content"
         android:text="refuse"
         android:id="@+id/btnRefuse"
-        android:layout_alignTop="@+id/btnAccept"
-        android:layout_toRightOf="@+id/btnAccept"
-        android:layout_toEndOf="@+id/btnAccept" />
+        android:layout_alignTop="@+id/btnBack"
+        android:layout_toRightOf="@+id/btnBack"
+        android:layout_toEndOf="@+id/btnBack" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back"
-        android:id="@+id/btnBack"
+        android:text="Accept"
+        android:id="@+id/btnAccept"
         android:layout_alignTop="@+id/btnRefuse"
         android:layout_toRightOf="@+id/btnRefuse"
         android:layout_toEndOf="@+id/btnRefuse" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:id="@+id/textView4"
+        android:layout_alignTop="@+id/dateText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

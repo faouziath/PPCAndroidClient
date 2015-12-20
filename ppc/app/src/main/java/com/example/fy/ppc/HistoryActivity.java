@@ -1,5 +1,6 @@
 package com.example.fy.ppc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import java.util.List;
 import client.ClientActivity;
 import client.ClientUISetting;
 import client.MyAdapter;
+import common.ActionReal;
 import common.Couple;
 import common.Historique;
 import common.Message;
@@ -19,7 +21,10 @@ import common.Message;
 public class HistoryActivity extends ClientActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     public  String currentUserId;
     public Couple currentCouple;
-    public List<String> currentHistorique;
+    public int currentHistPos;
+    public Historique currentHist;
+    public List<String> currentHistString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +40,9 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
         switch (response.getSubject()){
             case HISTORIQUE:
                 // references to our text
+                currentHist = (Historique)response.getBody();
                 List<String> list =((Historique)response.getBody()).toStringList();
-                currentHistorique = list;
+                currentHistString = list;
                 GridView gridview = (GridView) findViewById(R.id.gridView);
                 gridview.setAdapter(new MyAdapter(this, list));
                 break;
@@ -46,8 +52,12 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View v,
                             int position, long id) {
-            Toast.makeText(HistoryActivity.this, "" + currentHistorique.get(position),
+            Toast.makeText(HistoryActivity.this, "" + currentHist.getActionsReal().get(position),
                     Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ActionProcessActivity.class);
+        intent.putExtra("currentHistString", currentHistPos);
+        intent.putExtra("currentHist", currentHist);
+        startActivity(intent);
     }
 
     @Override
