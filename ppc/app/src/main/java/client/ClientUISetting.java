@@ -137,9 +137,14 @@ public class ClientUISetting {
         GridView grid = (GridView)act.findViewById(R.id.gridView);
         Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
         String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
+        act.currentCouple = couple;
+        act.currentUserId = userName;
         Message msgSn = new Message();
         msgSn.setSubject(Message.Subject.HISTORIQUE);
-        msgSn.setBody(couple);
+        ArrayList<String> list = new ArrayList<String>(2);
+        list.add(userName);
+        list.add(couple.getPatner(userName));
+        msgSn.setBody(list);
         act.sendReceive(msgSn);
     }
 //    public static void sendParie(ClientActivity act,String name){
