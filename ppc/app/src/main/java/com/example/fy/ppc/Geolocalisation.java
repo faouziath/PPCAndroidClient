@@ -186,8 +186,7 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "MENSONGE",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Picker, Picker.class);
-                            startActivity(new Intent(Picker,getClass()));
+                            launchPiker();
                            // sendReceive(new Message(Message.Subject.TOU_REFUSE,userId, partenaireUserId,null));
                             dialog.dismiss();
                         }
@@ -218,6 +217,15 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
 
 
     }
+
+    protected void launchPiker(){
+        Picker pik = null;
+        Intent intent = new Intent(pik, Picker.class);
+        intent.putExtra("userId",userId);
+        intent.putExtra("partenaireId",partenaireUserId);
+        startActivity(intent);
+    }
+
 
     /**
      * Creating google api client object
