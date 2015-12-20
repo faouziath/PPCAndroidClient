@@ -19,6 +19,7 @@ import common.Message;
 public class HistoryActivity extends ClientActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     public  String currentUserId;
     public Couple currentCouple;
+    public List<String> currentHistorique;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +35,8 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
         switch (response.getSubject()){
             case HISTORIQUE:
                 // references to our text
-                //private String[] texts = {"aaa", "bbb", "ccc", "ddd", "eee", "fff", "eee", "hhh", "iii"};
                 List<String> list =((Historique)response.getBody()).toStringList();
-//                list.add("aaa");
-//                list.add("dfd");
-//                list.add("aaa");
-//                list.add("aaa");
-//                list.add("dfd");
-//                list.add("aaa");
-//                list.add("aaa");
-//                list.add("dfd");
-//                list.add("aaa");
+                currentHistorique = list;
                 GridView gridview = (GridView) findViewById(R.id.gridView);
                 gridview.setAdapter(new MyAdapter(this, list));
                 break;
@@ -54,10 +46,8 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View v,
                             int position, long id) {
-        if(v.getId() == R.id.ConnectButtonId){
-            Toast.makeText(HistoryActivity.this, "" + position,
+            Toast.makeText(HistoryActivity.this, "" + currentHistorique.get(position),
                     Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

@@ -135,6 +135,7 @@ public class ClientUISetting {
 
     public static void setGrid(HistoryActivity act){
         GridView grid = (GridView)act.findViewById(R.id.gridView);
+        grid.setOnItemClickListener(act);
         Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
         String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
         act.currentCouple = couple;

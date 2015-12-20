@@ -2,6 +2,7 @@ package common;
 
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -103,7 +104,7 @@ public class ActionReal implements Serializable{
 
     public  String toString(){
         String str = "";
-        str += date + "\n";
+        str += new SimpleDateFormat("dd-MM-yyyy hh:mm").format(date) + "\n";
         str +=  action.getDescription() + "\n";
         return str;
     }
