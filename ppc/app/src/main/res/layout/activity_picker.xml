@@ -43,10 +43,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/address"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="44dp"
         android:onClick="onPickButtonClick"
-        android:text="Launch Place Picker" />
+        android:text="Launch Place Picker"
+        android:id="@+id/button"
+        android:layout_below="@+id/lbFalsePosition"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Choose your false position"
+        android:id="@+id/lbFalsePosition"
+        android:layout_below="@+id/address"
+        android:layout_toLeftOf="@+id/attributions"
+        android:layout_toStartOf="@+id/attributions"
+        android:layout_marginTop="100dp" />
 
 </RelativeLayout>

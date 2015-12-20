@@ -186,7 +186,9 @@ public class Geolocalisation extends ClientActivity implements GoogleApiClient.C
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "MENSONGE",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            sendReceive(new Message(Message.Subject.TOU_REFUSE,userId, partenaireUserId,null));
+                            Intent intent = new Intent(Picker, Picker.class);
+                            startActivity(new Intent(Picker,getClass()));
+                           // sendReceive(new Message(Message.Subject.TOU_REFUSE,userId, partenaireUserId,null));
                             dialog.dismiss();
                         }
                     });
