@@ -44,7 +44,10 @@ public class WelcomeActivity  extends ClientActivity implements
         setContentView(R.layout.activity_welcome);
         ClientUISetting.initComponent(this, ClientUISetting.ActivityType.WELCOME);
         ClientUISetting.setWelcomInfo(this);
-        startService(new Intent(this, SyncService.class).putExtra(SyncService.USER_ID, currentUserId));
+        startService(new Intent(this, SyncService.class)
+                .putExtra(SyncService.USER_ID, currentUserId)
+                .putExtra(SyncService.COUPLE_ID, currentCouple)
+        );
 
         if (checkPlayServices()) {
             buildGoogleApiClient();
