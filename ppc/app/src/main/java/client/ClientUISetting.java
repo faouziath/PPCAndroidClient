@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.fy.ppc.AddActionreal;
 import com.example.fy.ppc.ConnexionActivity;
+import com.example.fy.ppc.HistoryActivity;
 import com.example.fy.ppc.R;
 import com.example.fy.ppc.WelcomeActivity;
 
@@ -132,6 +134,16 @@ public class ClientUISetting {
         list.add(act.actionDescToSend);
         msgSn.setSubject(Message.Subject.ADD_AR);
         msgSn.setBody(list);
+        act.sendReceive(msgSn);
+    }
+
+    public static void setGrid(HistoryActivity act){
+        GridView grid = (GridView)act.findViewById(R.id.gridView);
+        Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
+        String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
+        Message msgSn = new Message();
+        msgSn.setSubject(Message.Subject.CONNECT);
+        msgSn.setBody(couple);
         act.sendReceive(msgSn);
     }
 //    public static void sendParie(ClientActivity act,String name){

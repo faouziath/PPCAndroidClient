@@ -35,4 +35,11 @@ public class Historique  {
     }
     public List<ActionReal> getActionsReal(){return actionsReal;}
 
+    public  List<String> toStringList(){
+        List<String> strs = new ArrayList<String>();
+        for(ActionReal act :actionsReal) {
+            strs.add(act.toString());
+        }
+        return strs;
+    }
 }

@@ -99,6 +99,11 @@ public class ActionReal {
         return id.hashCode();
     }
 
-
+    public  String toString(){
+        String str = "";
+        str += "       Date: " + date;
+        str += "description: " + action.getDescription() + "\n";
+        return str;
+    }
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fy.ppc">
+    package="com.example.fy.ppc" >
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -8,7 +8,6 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -30,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".WelcomeActivity" >
         </activity>
 
@@ -48,7 +46,7 @@
 
         <activity
             android:name=".Geolocalisation"
-            android:label="@string/title_activity_geolocalisation">
+            android:label="@string/title_activity_geolocalisation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,12 +55,15 @@
         </activity>
         <activity
             android:name=".LaMap"
-            android:label="@string/title_activity_la_map"></activity>
+            android:label="@string/title_activity_la_map" />
 
         <service
             android:name=".SyncService"
             android:exported="false" >
         </service>
+
+        <activity android:name=".HistoryActivity" >
+        </activity>
     </application>
 
 </manifest>

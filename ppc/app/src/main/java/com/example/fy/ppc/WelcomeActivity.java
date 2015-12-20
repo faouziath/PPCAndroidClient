@@ -37,5 +37,11 @@ public class WelcomeActivity  extends ClientActivity implements View.OnClickList
             intent.putExtra("currentUserId", currentUserId);
             startActivity(intent);
         }
+        else if(v.getId() == R.id.LRIdButton){
+            Intent intent = new Intent(this, HistoryActivity.class);
+            intent.putExtra("currentCouple", currentCouple);
+            intent.putExtra("currentUserId", currentUserId);
+            startActivity(intent);
+        }
     }
 }

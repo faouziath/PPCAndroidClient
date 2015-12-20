@@ -10,7 +10,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Fill your response"
         android:id="@+id/lblInd1"
         android:layout_alignParentTop="true"
@@ -22,7 +21,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Action"
         android:id="@+id/action"
         android:layout_below="@+id/lblInd1"
@@ -33,7 +31,6 @@
     <TextView
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/actionText"
         android:editable="true"
         android:layout_alignTop="@+id/action"
@@ -43,7 +40,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Comment"
         android:id="@+id/lblComment"
         android:layout_below="@+id/action"
