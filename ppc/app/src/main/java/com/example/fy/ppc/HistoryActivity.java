@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.ClientActivity;
+import client.ClientUISetting;
 import client.MyAdapter;
 import common.Couple;
 import common.Historique;
@@ -22,19 +23,7 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        List<String> list = new ArrayList<String>();
-        list.add("aaa");
-        list.add("dfd");
-        list.add("aaa");
-        list.add("aaa");
-        list.add("dfd");
-        list.add("aaa");
-        list.add("aaa");
-        list.add("dfd");
-        list.add("aaa");
-        GridView gridview = (GridView) findViewById(R.id.gridView);
-        gridview.setAdapter(new MyAdapter(this, list));
-
+        ClientUISetting.setGrid(this);
     }
 
     @Override
@@ -44,13 +33,18 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
             case HISTORIQUE:
                 // references to our text
                 //private String[] texts = {"aaa", "bbb", "ccc", "ddd", "eee", "fff", "eee", "hhh", "iii"};
-                List<String> list = new ArrayList<String>();
-                list.add("aaa");
-                list.add("dfd");
-                list.add("aaa");
-                //List<String> list = ((Historique)response.getBody()).toStringList();
+                List<String> list =((Historique)response.getBody()).toStringList();
+//                list.add("aaa");
+//                list.add("dfd");
+//                list.add("aaa");
+//                list.add("aaa");
+//                list.add("dfd");
+//                list.add("aaa");
+//                list.add("aaa");
+//                list.add("dfd");
+//                list.add("aaa");
                 GridView gridview = (GridView) findViewById(R.id.gridView);
-                gridview.setAdapter(new MyAdapter(this,list));
+                gridview.setAdapter(new MyAdapter(this, list));
                 break;
         }
     }
