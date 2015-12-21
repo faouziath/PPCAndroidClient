@@ -15,9 +15,11 @@ import com.example.fy.ppc.HistoryActivity;
 import com.example.fy.ppc.R;
 import com.example.fy.ppc.WelcomeActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.ActionReal;
 import common.Couple;
 import common.Historique;
 import common.Message;
@@ -83,17 +85,16 @@ public class ClientUISetting {
         int currentHistPos = (int) act.getIntent().getIntExtra("currentHistPos", 0);
         act.currentHist = currentHist;
         act.currentHistPos = currentHistPos;
-        TextView comment = (TextView)act.findViewById(R.id.commentText);
+        TextView mycomment = (TextView)act.findViewById(R.id.commentText);
         TextView dateText = (TextView)act.findViewById(R.id.dateText);
         TextView actionText = (TextView)act.findViewById(R.id.actionText);
-        comment.setText(currentHistPos);
-        //comment.setText(currentHist.getActionsReal().get(currentHistPos).getCommentaire());
-//        dateText.setText(currentHist.getActionsReal().get(currentHistPos).getDate().toString());
-//        actionText.setText(currentHist.getActionsReal().get(currentHistPos).getAction().getDescription());
-        String id = currentHist.getActionsReal().get(currentHistPos).getAction().getId();
-        String sender = currentHist.getActionsReal().get(currentHistPos).getEvaluateur().getId();
-        String receiver = currentHist.getActionsReal().get(currentHistPos).getEvaluer().getId();
-    }
+        List<ActionReal> l = currentHist.getActionsReal();
+        ActionReal ac = l.get(currentHistPos);
+
+        mycomment.setText(ac.getCommentaire());
+        dateText.setText(new SimpleDateFormat("dd-MM-yyyy hh:mm").format(ac.getDate()).toString());
+        actionText.setText(ac.getAction().getDescription());
+           }
 
     public  static  void sendUpdateAR(ActionProcessActivity act, String status){
         String id = act.currentHist.getActionsReal().get(act.currentHistPos).getAction().getId();

@@ -36,8 +36,7 @@
         android:layout_alignTop="@+id/action"
         android:layout_alignRight="@+id/lblInd1"
         android:layout_alignEnd="@+id/lblInd1"
-        android:layout_above="@+id/dateText"
-        android:text="kkkkk" />
+        android:layout_above="@+id/dateText" />
     <TextView
         android:layout_width="220dp"
         android:layout_height="wrap_content"
@@ -46,8 +45,7 @@
         android:layout_below="@+id/action"
         android:layout_alignRight="@+id/commentText"
         android:layout_alignEnd="@+id/commentText"
-        android:layout_marginTop="61dp"
-        android:text="kkkk" />
+        android:layout_marginTop="61dp" />
 
     <TextView
         android:layout_width="wrap_content"

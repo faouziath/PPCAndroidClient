@@ -21,7 +21,6 @@ import common.Message;
 public class HistoryActivity extends ClientActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     public  String currentUserId;
     public Couple currentCouple;
-    public int currentHistPos;
     public Historique currentHist;
     public List<String> currentHistString;
 
@@ -55,7 +54,7 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
             Toast.makeText(HistoryActivity.this, "" + currentHist.getActionsReal().get(position),
                     Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ActionProcessActivity.class);
-        intent.putExtra("currentHistString", currentHistPos);
+        intent.putExtra("currentHistPos", position);
         intent.putExtra("currentHist", currentHist);
         startActivity(intent);
     }
