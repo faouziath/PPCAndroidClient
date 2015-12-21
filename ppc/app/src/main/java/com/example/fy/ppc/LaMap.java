@@ -38,7 +38,7 @@ public class LaMap extends Activity implements OnMapReadyCallback {
         latitude = intent.getDoubleExtra("latitude", 0);
         LatLng sydney = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(sydney).title("IL EST PLANQUE ICI"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,14));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,16));
 
     }
 
