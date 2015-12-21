@@ -102,14 +102,17 @@ public class ClientUISetting {
         if(status.equals(ActionReal.Status.ATTENTE)){
             btnAccept.setEnabled(true);
             btnRefuse.setEnabled(true);
+            btnRefuse.setEnabled(true);
         }
         else if(status.equals(ActionReal.Status.VALIDER)){
             btnRefuse.setEnabled(false);
             btnAccept.setEnabled(false);
+            mycomment.setEnabled(false);
         }
         else if(status.equals(ActionReal.Status.REFUSER)){
             btnRefuse.setEnabled(false);
             btnAccept.setEnabled(false);
+            mycomment.setEnabled(false);
         }
 
         mycomment.setText(ac.getCommentaire());
