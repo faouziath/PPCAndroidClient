@@ -2,6 +2,7 @@ package com.example.fy.ppc;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,8 +27,15 @@ public class ActionProcessActivity extends ClientActivity implements View.OnClic
     {
         switch (response.getSubject()){
             case UPDATE_AR:
-
-
+                boolean answerStatus =(boolean)response.getBody();
+                if(answerStatus){
+                    Toast.makeText(ActionProcessActivity.this, "" + "Sucess" ,
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(ActionProcessActivity.this, "" + "Failure" ,
+                            Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

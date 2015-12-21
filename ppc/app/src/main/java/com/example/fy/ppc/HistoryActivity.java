@@ -51,8 +51,6 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View v,
                             int position, long id) {
-            Toast.makeText(HistoryActivity.this, "" + currentHist.getActionsReal().get(position),
-                    Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ActionProcessActivity.class);
         intent.putExtra("currentHistPos", position);
         intent.putExtra("currentHist", currentHist);

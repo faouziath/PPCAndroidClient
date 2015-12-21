@@ -81,6 +81,12 @@ public class ClientUISetting {
 
     public  static  void setActionARInfo(ActionProcessActivity act){
 
+        Button btnAccept = (Button)act.findViewById(R.id.btnAccept);
+        btnAccept.setOnClickListener(act);
+        Button btnRefuse = (Button)act.findViewById(R.id.btnRefuse);
+        btnRefuse.setOnClickListener(act);
+        Button btnBack = (Button)act.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(act);
         Historique currentHist = (Historique) act.getIntent().getSerializableExtra("currentHist");
         int currentHistPos = (int) act.getIntent().getIntExtra("currentHistPos", 0);
         act.currentHist = currentHist;
@@ -97,15 +103,18 @@ public class ClientUISetting {
            }
 
     public  static  void sendUpdateAR(ActionProcessActivity act, String status){
-        String id = act.currentHist.getActionsReal().get(act.currentHistPos).getAction().getId();
+        EditText mycomment = (EditText)act.findViewById(R.id.commentText);
+        String comment = mycomment.getText().toString();
+        String id = act.currentHist.getActionsReal().get(act.currentHistPos).id;
         String sender = act.currentHist.getActionsReal().get(act.currentHistPos).getEvaluateur().getId();
         String receiver = act.currentHist.getActionsReal().get(act.currentHistPos).getEvaluer().getId();
         Message msgSn = new Message();
         ArrayList<String> list = new ArrayList<String>(4);
         list.add(id);
+        list.add(comment);
+        list.add(status);
         list.add(sender);
         list.add(receiver);
-        list.add(status);
         msgSn.setSubject(Message.Subject.UPDATE_AR);
         msgSn.setBody(list);
         act.sendReceive(msgSn);
@@ -183,7 +192,9 @@ public class ClientUISetting {
         list.add(couple.getPatner(userName));
         msgSn.setBody(list);
         act.sendReceive(msgSn);
+        act.periodicSendReceive(msgSn,30000);
     }
+
 //    public static void sendParie(ClientActivity act,String name){
 //        EditText pointage = (EditText) act.findViewById(R.id.pointage);
 //        String pointageVal = pointage.getText().toString();
@@ -247,68 +258,6 @@ public class ClientUISetting {
 //        penB.setText(m.equipeB+":  "+formatList(pB));
 //
 //    }
-//
-//    public static String formatList(String s){
-//        s = s.replaceAll("\\{\\}", "");
-//        s = s.replaceAll("="," (");
-//        s = s.replaceAll(",", "), ");
-//        s = s.replaceAll("\\{", "");
-//        s = s.replaceAll("\\}", ")");
-//
-//        return s;
-//    }
-//
-//    public static  void notifyId(Context context, Parie_activity act,int id){
-//        CharSequence text = "Your comfirmation number is!"+ id;
-//        int duration = Toast.LENGTH_SHORT;
-//
-//        Toast toast = Toast.makeText(context, text, duration);
-//        toast.show();
-//        Intent intent = new Intent(act, Parie_activity.class);
-//        act.startActivity(intent);
-//    }
-//    public static  void setConfirm( Parie_activity act,int id){
-//        CharSequence text = "Your comfirmation number is!"+ id;
-//        TextView con = (TextView)act.findViewById(R.id.confirm);
-//        con.setText(text);
-//    }
-//    public static String formatMatchTime(int seconds) {
-//        String period;
-//
-//        if (seconds < 1200) {
-//            period = "1st";
-//        }
-//        else if (seconds < 2400) {
-//            period = "2nd";
-//        }
-//        else if (seconds < 3600) {
-//            period = "3rd";
-//        }
-//        else {
-//            return "match terminated";
-//        }
-//
-//        int secondsLeft = 1200 - (seconds % 1200);
-//
-//        int mins = (secondsLeft / 60);
-//        int secs = (secondsLeft % 60);
-//
-//        String mm;
-//        if (mins < 10) {
-//            mm = "0" + mins;
-//        }
-//        else {
-//            mm = Integer.toString(mins);
-//        }
-//
-//        String ss;
-//        if (secs < 10) {
-//            ss = secs + "0";
-//        }
-//        else {
-//            ss = Integer.toString(secs);
-//        }
-//
-//        return period + " period - " + mm + ":" + ss;
-//    }
+
+
 }
