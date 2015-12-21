@@ -50,7 +50,7 @@ public class LaMap extends Activity implements OnMapReadyCallback {
 
     /**
      * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
+     * This callback is triggered when the map is ready to be used. 
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
      * we just add a marker near Sydney, Australia.
      * If Google Play services is not installed on the device, the user will be prompted to install

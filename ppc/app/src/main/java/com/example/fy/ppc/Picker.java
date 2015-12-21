@@ -83,7 +83,7 @@ public class Picker extends ClientActivity {
             tempCoord = temp.longitude;
             envoi.add(tempCoord);
 
-            sendReceive(new Message(Message.Subject.TOU_REFUSE, getIntent().getStringExtra("userId"), getIntent().getStringExtra("partenaireId"), envoi));
+            sendReceive(new Message(Message.Subject.TOU_REFUSE, getIntent().getStringExtra("userId"), getIntent().getStringExtra("partenaireId"), envoi ));
             tvName.setText(name);
             tvAddress.setText(address);
             tvAttributions.setText(Html.fromHtml(attributions));
