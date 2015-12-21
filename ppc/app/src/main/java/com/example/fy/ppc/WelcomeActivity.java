@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -49,11 +50,14 @@ public class WelcomeActivity  extends ClientActivity implements
                 .putExtra(SyncService.COUPLE_ID, currentCouple)
         );
 
+
         if (checkPlayServices()) {
             buildGoogleApiClient();
         }
 
         partnerUserId = currentCouple.getPatner(currentUserId);
+        Message mess = new Message(Message.Subject.GET_COUPLE,currentCouple);
+        periodicSendReceive(mess,2000);
     }
 
     private Message getNotificationMessage() {
@@ -66,6 +70,12 @@ public class WelcomeActivity  extends ClientActivity implements
         switch (response.getSubject()){
             case CONNECT:
                 break;
+            case GET_COUPLE:
+                currentCouple = (Couple) response.getBody();
+                TextView point1 = (TextView)this.findViewById(R.id.PointMonsieurId);
+                point1.setText(Integer.toString(currentCouple.GetPCpartener1()));
+                TextView point2 = (TextView)this.findViewById(R.id.PointMadameId);
+                point2.setText(Integer.toString(currentCouple.GetPCpartener2()));
         }
     }
     @Override
@@ -229,6 +239,7 @@ public class WelcomeActivity  extends ClientActivity implements
 
                 break;
 
+
             case TOU_POSITION:
                 ArrayList laliste = (ArrayList)message.getBody();
                 double latitude = (double) laliste.get(0);
@@ -244,6 +255,7 @@ public class WelcomeActivity  extends ClientActivity implements
                 intent.putExtra("currentCouple", currentCouple);
                 intent.putExtra("currentUserId", currentUserId);
                 startActivity(intent);
+
 
         }
     }
