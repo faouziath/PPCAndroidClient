@@ -207,7 +207,7 @@ public class ClientUISetting {
         list.add(couple.getPatner(userName));
         msgSn.setBody(list);
         act.sendReceive(msgSn);
-        act.periodicSendReceive(msgSn,30000);
+        act.periodicSendReceive(msgSn,2000);
     }
 
 //    public static void sendParie(ClientActivity act,String name){
