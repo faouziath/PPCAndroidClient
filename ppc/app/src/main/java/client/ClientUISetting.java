@@ -85,10 +85,12 @@ public class ClientUISetting {
         btnAccept.setOnClickListener(act);
         Button btnRefuse = (Button)act.findViewById(R.id.btnRefuse);
         btnRefuse.setOnClickListener(act);
-        Button btnBack = (Button)act.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(act);
+        Couple couple = (Couple) act.getIntent().getSerializableExtra("currentCouple");
+        String userName = (String) act.getIntent().getSerializableExtra("currentUserId");
         Historique currentHist = (Historique) act.getIntent().getSerializableExtra("currentHist");
         int currentHistPos = (int) act.getIntent().getIntExtra("currentHistPos", 0);
+        act.currentCouple = couple;
+        act.currentUserId = userName;
         act.currentHist = currentHist;
         act.currentHistPos = currentHistPos;
         TextView mycomment = (TextView)act.findViewById(R.id.commentText);
@@ -96,6 +98,19 @@ public class ClientUISetting {
         TextView actionText = (TextView)act.findViewById(R.id.actionText);
         List<ActionReal> l = currentHist.getActionsReal();
         ActionReal ac = l.get(currentHistPos);
+        ActionReal.Status status = ac.getStatus();
+        if(status.equals(ActionReal.Status.ATTENTE)){
+            btnAccept.setEnabled(true);
+            btnRefuse.setEnabled(true);
+        }
+        else if(status.equals(ActionReal.Status.VALIDER)){
+            btnRefuse.setEnabled(false);
+            btnAccept.setEnabled(false);
+        }
+        else if(status.equals(ActionReal.Status.REFUSER)){
+            btnRefuse.setEnabled(false);
+            btnAccept.setEnabled(false);
+        }
 
         mycomment.setText(ac.getCommentaire());
         dateText.setText(new SimpleDateFormat("dd-MM-yyyy hh:mm").format(ac.getDate()).toString());

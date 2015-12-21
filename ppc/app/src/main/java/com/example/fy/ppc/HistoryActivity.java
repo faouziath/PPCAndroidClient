@@ -52,6 +52,8 @@ public class HistoryActivity extends ClientActivity implements View.OnClickListe
     public void onItemClick(AdapterView<?> parent, View v,
                             int position, long id) {
         Intent intent = new Intent(this, ActionProcessActivity.class);
+        intent.putExtra("currentCouple", currentCouple);
+        intent.putExtra("currentUserId", currentUserId);
         intent.putExtra("currentHistPos", position);
         intent.putExtra("currentHist", currentHist);
         startActivity(intent);

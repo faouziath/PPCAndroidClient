@@ -9,11 +9,14 @@ import java.util.List;
 import client.ClientActivity;
 import client.ClientUISetting;
 import common.ActionReal;
+import common.Couple;
 import common.Historique;
 import common.Message;
 import common.User;
 
 public class ActionProcessActivity extends ClientActivity implements View.OnClickListener{
+    public  String currentUserId;
+    public Couple currentCouple;
     public int currentHistPos;
     public Historique currentHist;
     @Override
@@ -45,6 +48,9 @@ public class ActionProcessActivity extends ClientActivity implements View.OnClic
 
         if(v.getId() == R.id.btnAccept){
             ClientUISetting.sendUpdateAR(this, "VALIDER");
+        }
+        else if(v.getId() == R.id.btnRefuse){
+            ClientUISetting.sendUpdateAR(this, "REFUSE");
         }
         else if(v.getId() == R.id.btnRefuse){
             ClientUISetting.sendUpdateAR(this, "REFUSE");
