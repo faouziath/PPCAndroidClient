@@ -99,6 +99,11 @@ public class ClientUISetting {
         List<ActionReal> l = currentHist.getActionsReal();
         ActionReal ac = l.get(currentHistPos);
         ActionReal.Status status = ac.getStatus();
+        if(act.currentUserId.equals(ac.getEvaluateur().getId())){
+            btnRefuse.setEnabled(false);
+            btnAccept.setEnabled(false);
+            mycomment.setEnabled(false);
+        }
         if(status.equals(ActionReal.Status.ATTENTE)){
             btnAccept.setEnabled(true);
             btnRefuse.setEnabled(true);
