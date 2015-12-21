@@ -37,6 +37,17 @@ public class AddActionreal extends ClientActivity implements  AdapterView.OnItem
             case ACTIONS:
                 ClientUISetting.setSpinnerEnd(this,(List<String>) response.getBody(),R.id.SpinnerAcAR);
                 break;
+            case ADD_AR:
+                boolean answerStatus =(boolean)response.getBody();
+                if(answerStatus){
+                    Toast.makeText(AddActionreal.this, "" + "Sucess" ,
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(AddActionreal.this, "" + "Failure" ,
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
     @Override
