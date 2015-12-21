@@ -301,8 +301,6 @@ public class MainActivity extends ClientActivity implements
 
     public void addListenerOnButton() {
 
-
-
         mBtnSend.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -87,5 +87,14 @@
         android:layout_alignRight="@+id/PointMonsieurId"
         android:layout_alignEnd="@+id/PointMonsieurId"
         android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calendrier du couple"
+        android:id="@+id/btnCalendrier"
+        android:layout_below="@+id/PointMadameId"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp" />
 </RelativeLayout>
 

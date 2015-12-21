@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class WelcomeActivity extends ClientActivity implements
 
     private static final String TAG = WelcomeActivity.class.getSimpleName();
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-
+    protected Button mBtnCalendar;
     public String currentUserId;
     public Couple currentCouple;
     public String partnerUserId;
@@ -43,6 +44,7 @@ public class WelcomeActivity extends ClientActivity implements
     protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
 
         ClientUISetting.initComponent(this, ClientUISetting.ActivityType.WELCOME);
         ClientUISetting.setWelcomInfo(this);
@@ -53,11 +55,31 @@ public class WelcomeActivity extends ClientActivity implements
         partnerUserId = currentCouple.getPatner(currentUserId);
         Message mess = new Message(Message.Subject.GET_COUPLE, currentCouple);
         periodicSendReceive(mess, 2000);
+        mBtnCalendar = (Button) findViewById(R.id.btnCalendrier);
+        addListenerOnButton();
 
     }
 
     private Message getNotificationMessage() {
         return (Message) getIntent().getSerializableExtra(SyncService.NOTIFICATION_MESSAGE);
+    }
+
+
+    public void addListenerOnButton() {
+
+
+
+        mBtnCalendar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Intent intent = new Intent(WelcomeActivity.this, CalendarApi.class);
+                startActivity(intent);
+                finish();
+            }
+
+        });
     }
 
     @Override
@@ -90,7 +112,9 @@ public class WelcomeActivity extends ClientActivity implements
             String partnerUserId = currentCouple.getPatner(currentUserId);
             sendReceive(new Message(Message.Subject.TOU_REQUEST, currentUserId, partnerUserId, null));
         }
-    }
+
+
+}
 
 
 
