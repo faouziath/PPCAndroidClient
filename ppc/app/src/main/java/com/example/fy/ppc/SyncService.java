@@ -81,7 +81,7 @@ public class SyncService extends IntentService {
                                 new Intent(this, WelcomeActivity.class)
                                         .putExtra(NOTIFICATION_MESSAGE, message)
                                         .putExtra("currentCouple", currentCouple)
-                                        .putExtra("currentUserId", currentUserId)
+                                        .putExtra("currentUserId", currentUserId).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         )
                         .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         )

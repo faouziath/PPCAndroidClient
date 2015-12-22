@@ -16,6 +16,7 @@
 
 package com.example.fy.ppc;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -309,8 +310,15 @@ public class MainActivity extends ClientActivity implements
                 ArrayList list = getLocation();
                 String partnerUserId = (String) getIntent().getSerializableExtra("partnerUserId");
                 String currentUserId = (String) getIntent().getSerializableExtra("currentUserId");
+                Couple currentCouple = (Couple) getIntent().getSerializableExtra("currentCouple");
                 sendReceive(new Message(Message.Subject.TOU_POSITION, currentUserId, partnerUserId, list));
+                Intent intentR = new Intent(MainActivity.this ,WelcomeActivity.class);
+                intentR.putExtra("partnerUserId", partnerUserId);
+                intentR.putExtra("currentUserId", currentUserId);
+                intentR.putExtra("currentCouple", currentCouple);
+                startActivity(intentR);
                 finish();
+
             }
 
         });

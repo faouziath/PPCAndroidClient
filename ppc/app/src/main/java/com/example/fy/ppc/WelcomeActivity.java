@@ -76,7 +76,7 @@ public class WelcomeActivity extends ClientActivity implements
 
                 Intent intent = new Intent(WelcomeActivity.this, CalendarApi.class);
                 startActivity(intent);
-                finish();
+
             }
 
         });
@@ -150,29 +150,35 @@ public class WelcomeActivity extends ClientActivity implements
                 Toast.makeText(getApplicationContext(),
                         "NOUVELLE DEMANDE DE TOU", Toast.LENGTH_LONG)
                         .show();
-                AlertDialog alertDialog = new AlertDialog.Builder(WelcomeActivity.this).create();
+                final AlertDialog alertDialog = new AlertDialog.Builder(WelcomeActivity.this).create();
                 alertDialog.setTitle("Alert");
                 alertDialog.setMessage("TA CHERIE VEUT SAVOIR OU TU ES");
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ENVOYER POSITION",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                dialog.dismiss();
                                 Intent intentR = new Intent(WelcomeActivity.this ,MainActivity.class);
                                 intentR.putExtra("partnerUserId", partnerUserId);
                                 intentR.putExtra("currentUserId", currentUserId);
+                                intentR.putExtra("currentCouple", currentCouple);
+
                                 startActivity(intentR);
+                                System.out.println("salut");
+                                finish();
 
 
-                                dialog.dismiss();
+
                             }
                         });
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "MENSONGE",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 launchPiker();
+
                                 dialog.dismiss();
                             }
                         });
+
                 alertDialog.show();
                 break;
             case TOU_REFUSE:
